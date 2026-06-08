@@ -58,6 +58,15 @@ fun HomeScreen(
     var showGoalPicker by remember { mutableStateOf(false) }
     var selectedVisualizerStyle by remember { mutableIntStateOf(1) } // Default to Plant Growth!
 
+    val geminiTip by viewModel.geminiTip.collectAsState()
+    val isGeneratingTip by viewModel.isGeneratingTip.collectAsState()
+
+    LaunchedEffect(trackedGoal) {
+        if (geminiTip.isEmpty() && trackedGoal != null) {
+            viewModel.refreshGeminiTip(trackedGoal)
+        }
+    }
+
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -378,6 +387,108 @@ fun HomeScreen(
                             color = Color.Gray,
                             textAlign = TextAlign.Center,
                             lineHeight = 16.sp
+                        )
+                    }
+                }
+            }
+        }
+
+        // --- SECTION 1B: Gemini Daily Financial Tips ---
+        item {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .border(
+                        width = 1.dp,
+                        color = GreenDark.copy(alpha = 0.15f),
+                        shape = RoundedCornerShape(24.dp)
+                    )
+                    .testTag("gemini_tips_card"),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
+                shape = RoundedCornerShape(24.dp)
+            ) {
+                Column(modifier = Modifier.padding(18.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(
+                                modifier = Modifier
+                                    .size(32.dp)
+                                    .clip(CircleShape)
+                                    .background(GreenPastel.copy(alpha = 0.4f)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text("✨", fontSize = 16.sp)
+                            }
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Column {
+                                Text(
+                                    text = "GEMINI TIPS HARIAN",
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Black,
+                                    color = GreenDark,
+                                    letterSpacing = 1.sp
+                                )
+                                Text(
+                                    text = "Tips Pintar Keuangan",
+                                    fontSize = 13.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = TextDark
+                                )
+                            }
+                        }
+
+                        if (isGeneratingTip) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(20.dp),
+                                strokeWidth = 2.dp,
+                                color = GreenDark
+                            )
+                        } else {
+                            IconButton(
+                                onClick = { viewModel.refreshGeminiTip(trackedGoal) },
+                                modifier = Modifier.size(28.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.Refresh,
+                                    contentDescription = "Perbarui Tips",
+                                    tint = GreenDark,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    if (isGeneratingTip && geminiTip.isEmpty()) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 16.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                "Menganalisis progress menabung...",
+                                fontSize = 12.sp,
+                                color = Color.Gray,
+                                fontWeight = FontWeight.Medium
+                            )
+                        }
+                    } else {
+                        val displayTip = geminiTip.ifEmpty {
+                            "Mulai tentukan target impianmu dan tabung sedikit demi sedikit setiap hari secara konsisten! 🌱"
+                        }
+                        Text(
+                            text = displayTip,
+                            fontSize = 12.sp,
+                            color = TextDark,
+                            fontWeight = FontWeight.Medium,
+                            lineHeight = 18.sp,
+                            modifier = Modifier.fillMaxWidth()
                         )
                     }
                 }

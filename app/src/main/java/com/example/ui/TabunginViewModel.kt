@@ -148,6 +148,27 @@ class TabunginViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    // --- Gemini Financial Tips ---
+    private val _geminiTip = MutableStateFlow<String>("")
+    val geminiTip: StateFlow<String> = _geminiTip.asStateFlow()
+
+    private val _isGeneratingTip = MutableStateFlow<Boolean>(false)
+    val isGeneratingTip: StateFlow<Boolean> = _isGeneratingTip.asStateFlow()
+
+    fun refreshGeminiTip(goal: SavingGoal?) {
+        viewModelScope.launch {
+            _isGeneratingTip.value = true
+            try {
+                val tip = GeminiRepository.generateFinancialTip(goal)
+                _geminiTip.value = tip
+            } catch (e: Exception) {
+                _geminiTip.value = "Semoga harimu menyenangkan! Mari terus konsisten menabung untuk mewujudkan impianmu! 🌱"
+            } finally {
+                _isGeneratingTip.value = false
+            }
+        }
+    }
+
     private fun getCategoryDefaultImage(category: String): String {
         return when (category.lowercase()) {
             "smartphone" -> "smartphone"
