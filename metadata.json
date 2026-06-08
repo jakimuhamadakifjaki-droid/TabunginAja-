@@ -1,0 +1,6 @@
+{
+  "name": "TabunginAja",
+  "description": "Asisten menabung virtual berbasis tujuan dengan sistem auto-save, pembulatan belanja, dan tantangan menabung yang asyik.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

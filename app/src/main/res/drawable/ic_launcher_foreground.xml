@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Glowing Background Aura behind the Coin Sprout -->
+    <path
+        android:fillColor="#1AFFFFFF"
+        android:pathData="M54,54m-28,0a28,28 0,1 1,56 0a28,28 0,1 1,-56 0" />
+
+    <!-- Sprout Stem (Pastel mint growth) -->
+    <path
+        android:strokeWidth="4"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:pathData="M54,64 L54,30" />
+
+    <!-- Left Leaf (Mint green leaf sprouting upwards) -->
+    <path
+        android:fillColor="#A8D5BA"
+        android:pathData="M54,42 C44,42 41,30 40,28 C45,26 54,34 54,42 Z" />
+
+    <!-- Right Leaf (Dark Forest green leaf sprouting upwards) -->
+    <path
+        android:fillColor="#FFF4A3"
+        android:pathData="M54,36 C64,36 67,24 68,22 C63,20 54,28 54,36 Z" />
+
+    <!-- Piggy Money Gold Coin -->
+    <path
+        android:fillColor="#FFF4A3"
+        android:pathData="M54,74m-16,0a16,16 0,1 1,32 0a16,16 0,1 1,-32 0" />
+
+    <!-- Coin Rim Stroke for depth -->
+    <path
+        android:strokeWidth="2.5"
+        android:strokeColor="#FFFFFF"
+        android:pathData="M54,74m-16,0a16,16 0,1 1,32 0a16,16 0,1 1,-32 0" />
+
+    <!-- Tiny Inner Coin circle -->
+    <path
+        android:strokeWidth="1.2"
+        android:strokeColor="#4E7B5B"
+        android:pathData="M54,74m-11,0a11,11 0,1 1,22 0a11,11 0,1 1,-22 0" />
+
+    <!-- Rupiah 'Rp' character inside the Coin -->
+    <path
+        android:fillColor="#4E7B5B"
+        android:pathData="M51.5,70.5 L55,70.5 C56.5,70.5 57,71 57,72.2 C57,73.5 56.5,74 55,74 L51.5,74 L51.5,78 L49.5,78 L49.5,70.5 Z M51.5,72.5 L51.5,72.5 L51.5,73.8 L54.5,73.8 C54.9,73.8 55.1,73.6 55.1,73 L55.1,73 C55.1,72.5 54.9,72.5 54.5,72.5 Z" />
+
+</vector>
